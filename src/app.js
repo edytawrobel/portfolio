@@ -1,61 +1,102 @@
-console.log('app is running');
-
-const app = {
-    title: 'Indecision app',
-    subtitle: 'we are going to help you with your decision making!',
-    //subtitle: null,
-    options: []
+class IndecisionApp extends React.Component {
+    render() {
+        const title = 'Indecision app';
+        const subtitle = 'Put your life in the hands of a computer';
+        const options = [' thing one ', 'thing two ', 'thing three '];
+        return (
+            <div>
+                <Header title={title} subtitle={subtitle} />
+                <Action />
+                <Options options={options}/>
+                <AddOption />
+            </div>
+        )
+    }
 }
 
-const onFormSubmit = (e) => {
-    e.preventDefault();
-    const option = e.target.elements.option.value;
-
-    if (option) {
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderTemplate();
-    };
-};
-
-const removeAll = () => {
-    app.options = [];
-    renderTemplate();
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>        
+        );
+    }
 }
 
-const makeDecision = () => {
-    const randomNum = Math.floor(Math.random() * app.options.length);
-    const randomOption = app.options[randomNum];
-    alert(randomOption);
+class Action extends React.Component {
+    handlePick() {
+        alert('woohaa!');
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.handlePick}>What should I do?</button>
+            </div>
+        );
+    } 
 }
 
-const appRoot = document.getElementById('app');
+class Options extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
 
-const renderTemplate = () => {
+    handleRemoveAll() {
+        console.log(this.props.options);
+        alert('removed');
+    }
 
-    let template = (
-        <div>
-            <h1>{app.title}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            <p>{app.options.length > 0 ? 'Here are your options: ' : 'No options'}</p>
-            <button disabled={app.options.length === 0} onClick={makeDecision}>What should I do?</button>
-            <button id="remover" onClick={removeAll}>Remove All</button>
-            <ol> 
+    render() {
+        return (
+            <div>
+            <ul> Options: 
             {
-                app.options.map((option) => {
-                    return <li key={option}>{option}</li>
-                })
-            }
-            </ol>
-            <p>{app.options.length}</p>
+                this.props.options.map((option) => {
+                    return <Option key={option} optionText={option} />
+                }
+            )
+        }
+        </ul>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
+            </div>
+        );
+    }
+}
 
-            <form onSubmit={onFormSubmit}>
-                <input type="text" name="option"></input>
-                <button>Submit</button>
-            </form>
-        </div>
-    )    
-    ReactDOM.render(template, appRoot);
-};
+class Option extends React.Component {
+    render() {
+        return (
+            <p>{this.props.optionText}</p>
+        );
+    }
+}
 
-renderTemplate();
+class AddOption extends React.Component {
+    handleAddOption(e) {
+        e.preventDefault();
+        const option = e.target.elements.option.value.trim();
+
+        if(option) {
+            alert(option);
+        } else {
+            alert('no option provided!');
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleAddOption}>
+                    <input type="text" name="option" placeholder="your option"></input>
+                    <button>Add Option</button>
+                </form>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
