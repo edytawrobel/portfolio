@@ -1,30 +1,64 @@
 console.log('hi');
+class VisibilityToggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleToggleVisibiliy = this.handleToggleVisibiliy.bind(this);
+        this.state = {
+            visibility: false,
+        };
+    }
 
-const appRoot = document.getElementById('app');
+    handleToggleVisibiliy() {
+        this.setState((prevState) => {
+            return {
+                visibility: !prevState.visibility
+            };
+        })
+    }
 
-let visibility = false;
-
-const toggleDetails = () => {
-    visibility = !visibility;
-    renderTemplate();
+    render() {
+        return (
+            <div>
+                <h1>Visibility Toggle</h1>
+                <button onClick={this.handleToggleVisibiliy}> { this.state.visibility ? 'Hide details' : 'Show details'}</button>
+                {
+                    this.state.visibility && (
+                    <p>Here are all your details</p> )
+                }
+            </div>
+        )
+    }
 }
 
-const renderTemplate = () => {
+ReactDOM.render(<VisibilityToggle />, document.getElementById('app'));
 
-    const toggle = (
-        <div>
-            <h1>Visibility Toggle</h1>
-            <button onClick={toggleDetails}>{ visibility ? 'Hide details' : 'Show details' }</button>
-            {
-                visibility && (
-                <p>Here are all your details</p> )
-            }
-        </div>
-    );
-    ReactDOM.render(toggle, appRoot);
-}
 
-renderTemplate();
+
+// const appRoot = document.getElementById('app');
+
+// let visibility = false;
+
+// const toggleDetails = () => {
+//     visibility = !visibility;
+//     renderTemplate();
+// }
+
+// const renderTemplate = () => {
+
+//     const toggle = (
+//         <div>
+//             <h1>Visibility Toggle</h1>
+//             <button onClick={toggleDetails}>{ visibility ? 'Hide details' : 'Show details' }</button>
+//             {
+//                 visibility && (
+//                 <p>Here are all your details</p> )
+//             }
+//         </div>
+//     );
+//     ReactDOM.render(toggle, appRoot);
+// }
+
+// renderTemplate();
 
 
 
