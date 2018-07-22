@@ -1,4 +1,15 @@
-import './utils.js'
+import { square } from './utils.js';
+import validator from 'validator';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-console.log('app is running');
+// console.log(square(4));
+
+//console.log(validator.isEmail('test'));
+
+//const template = React.createElement('p', {}, 'testing');
+
+const template = <p>THIS IS JSX WORKING</p>
+
+ReactDOM.render(template, document.getElementById('app'));
 
