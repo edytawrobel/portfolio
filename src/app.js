@@ -1,7 +1,8 @@
-import { square } from './utils.js';
 import validator from 'validator';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import IndecisionApp from './components/IndecisionApp';
+
 
 // console.log(square(4));
 
@@ -9,7 +10,6 @@ import ReactDOM from 'react-dom';
 
 //const template = React.createElement('p', {}, 'testing');
 
-const template = <p>THIS IS JSX WORKING</p>
 
-ReactDOM.render(template, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
 
