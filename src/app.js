@@ -1,16 +1,48 @@
-import validator from 'validator';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import IndecisionApp from './components/IndecisionApp';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss';
 
-// console.log(square(4));
+const ExpenseDashboardPage = () => (
+    <div>
+        This is from my dashboard component
+    </div>
+)
 
-//console.log(validator.isEmail('test'));
+const AddExpensePage = () => (
+    <div>
+        This is from my AddExpensePage component
+    </div>
+)
 
-//const template = React.createElement('p', {}, 'testing');
+const EditExpensePage = () => (
+    <div>
+        This is from my EditExpensePage component
+    </div>
+)
 
+const HelpPage = () => (
+    <div>
+        This is from my HelpPage component
+    </div>
+)
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+const NotFound = () => (
+    <div>404! Not Found</div>
+)
+
+const routes = (
+    <BrowserRouter>
+        <Switch>
+            <Route path="/" component={ExpenseDashboardPage} exact={true}/>
+            <Route path="/create" component={AddExpensePage}/>
+            <Route path="/edit" component={EditExpensePage}/>
+            <Route path="/help" component={HelpPage}/>
+            <Route component={NotFound}/>
+        </Switch>
+    </BrowserRouter>
+);
+
+ReactDOM.render(routes, document.getElementById('app'));
 
